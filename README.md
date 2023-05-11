@@ -1,4 +1,4 @@
-# Coding Quiz UCF Bootcam Challenge 
+# Coding Quiz UCF Bootcamp Challenge 
 
 ## Description
 
