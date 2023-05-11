@@ -1,3 +1,5 @@
+
+
 let startBtn = document.getElementById('start-btn');
 let questionContainerEl = document.getElementById("question-container");
 let highscoresContainerEl = document.getElementById("highscores-container");
@@ -9,14 +11,15 @@ let answerButtonsEl = document.getElementById("answer-buttons");
 let feedbackEl = document.getElementById("feedback"); 
 let timerEl = document.createElement("p"); 
 let headerEl = document.getElementById("header"); 
+let shuffledQuestions, currentQuestionIndex;
+let counter;
+let allQuestionsAnswered = false; 
 
 startBtn.addEventListener("click", startQuiz);
 clearBtn.addEventListener("click", clearScores);
 restartBtn.addEventListener("click", restartQuiz);
 
-let shuffledQuestions, currentQuestionIndex;
-let counter;
-let allQuestionsAnswered = false; 
+//Start Quiz with timer function
 
 function startQuiz() {
   console.log("Quiz started");
@@ -40,37 +43,7 @@ function startQuiz() {
   }, 1000);
 }
 
-function setNextQuestion() {
-  if (currentQuestionIndex < shuffledQuestions.length) {
-    resetState();
-    showQuestion(shuffledQuestions[currentQuestionIndex]);
-    currentQuestionIndex++;
-  } else {
-    allQuestionsAnswered = true; 
-    endQuiz();
-  }
-}
-
-function showQuestion(question) {
-  questionEl.innerText = question.question;
-  question.answers.forEach(answer => {
-    const button = document.createElement('button');
-    button.innerText = answer.text;
-    button.classList.add('btn');
-    if (answer.correct) {
-      button.dataset.correct = answer.correct;
-    }
-    button.addEventListener("click", selectAnswer);
-    answerButtonsEl.appendChild(button);
-  });
-}
-
-function resetState() {
-  while (answerButtonsEl.firstChild) {
-    answerButtonsEl.removeChild(answerButtonsEl.firstChild);
-  }
-  feedbackEl.textContent = "";
-}
+// Gives feedback and takes 10 seconds off if answer is incorrect
 
 function selectAnswer(e) {
   const selectedButton = e.target;
@@ -93,6 +66,35 @@ function selectAnswer(e) {
   }
 }
 
+//follows up to the next question
+
+function setNextQuestion() {
+  if (currentQuestionIndex < shuffledQuestions.length) {
+    resetState();
+    showQuestion(shuffledQuestions[currentQuestionIndex]);
+    currentQuestionIndex++;
+  } else {
+    allQuestionsAnswered = true; 
+    endQuiz();
+  }
+}
+
+//Shows answer in the console to check if Event listener was registered 
+
+function showQuestion(question) {
+  questionEl.innerText = question.question;
+  question.answers.forEach(answer => {
+    const button = document.createElement('button');
+    button.innerText = answer.text;
+    button.classList.add('btn');
+    if (answer.correct) {
+      button.dataset.correct = answer.correct;
+    }
+    button.addEventListener("click", selectAnswer);
+    answerButtonsEl.appendChild(button);
+  });
+}
+
 function setStatusClass(element, correct) {
   clearStatusClass(element);
   if (correct) {
@@ -104,11 +106,19 @@ function setStatusClass(element, correct) {
   }
 }
 
+function resetState() {
+  while (answerButtonsEl.firstChild) {
+    answerButtonsEl.removeChild(answerButtonsEl.firstChild);
+  }
+  feedbackEl.textContent = "";
+}
+
 function clearStatusClass(element) {
   element.classList.remove('correct');
   element.classList.remove('wrong');
 }
 
+// Shows last page with stats and saves on the DOM 
 function endQuiz() {
   questionContainerEl.classList.add('hide');
   highscoresContainerEl.classList.remove('hide');
@@ -185,6 +195,9 @@ highScoreLink.textContent = 'View High Scores';
 highScoreLink.href = '#highscores-container';
 highScoreLink.classList.add('viewHSbtn');
 document.body.appendChild(highScoreLink);
+
+
+//Question Array
 
 const questions = [
   {
