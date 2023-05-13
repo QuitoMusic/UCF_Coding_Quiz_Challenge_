@@ -181,14 +181,38 @@ function clearScores() {
   highscoresListEl.innerHTML = '';
 }
 
+//Timer restarts when clicked to restart quiz
+
+let myInterval; 
+
 function restartQuiz() {
   highscoresContainerEl.classList.add('hide');
   questionContainerEl.classList.remove('hide');
   shuffledQuestions = questions.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
+  allQuestionsAnswered = false; 
   counter = 75;
   setNextQuestion();
+  
+  clearInterval(myInterval); 
+  startTimer();
 }
+
+//Timer
+
+function startTimer() {
+  timerEl.textContent = "Time left: " + counter;
+  myInterval = setInterval(function() { 
+    timerEl.textContent = "Time left: " + counter;
+    if (counter === 0 || allQuestionsAnswered) {
+      clearInterval(myInterval);
+      endQuiz();
+    }
+    counter--;
+  }, 1000);
+}
+
+//High-scores tab
 
 const highScoreLink = document.createElement('a');
 highScoreLink.textContent = 'View High Scores';
