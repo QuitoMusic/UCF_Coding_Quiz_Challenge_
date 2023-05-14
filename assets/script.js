@@ -1,5 +1,3 @@
-
-
 let startBtn = document.getElementById('start-btn');
 let questionContainerEl = document.getElementById("question-container");
 let highscoresContainerEl = document.getElementById("highscores-container");
@@ -219,7 +217,6 @@ highScoreLink.textContent = 'View High Scores';
 highScoreLink.href = '#highscores-container';
 highScoreLink.classList.add('viewHSbtn');
 document.body.appendChild(highScoreLink);
-
 
 //Question Array
 
