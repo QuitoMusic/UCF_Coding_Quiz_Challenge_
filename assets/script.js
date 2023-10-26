@@ -42,7 +42,6 @@ function startQuiz() {
 }
 
 // Gives feedback and takes 10 seconds off if answer is incorrect
-
 function selectAnswer(e) {
   const selectedButton = e.target;
   const correct = selectedButton.dataset.correct;
@@ -55,6 +54,11 @@ function selectAnswer(e) {
   setTimeout(function() {
     clearStatusClass(selectedButton);
     setNextQuestion();
+
+    // Check if all questions have been answered and clear feedback
+    if (allQuestionsAnswered) {
+      feedbackEl.textContent = "";
+    }
   }, 1000);
 
   if (correct) {
@@ -174,6 +178,25 @@ function displayHighScores() {
     });
 }
 
+// Add this code to your existing JavaScript
+const viewHighScoresLink = document.getElementById("view-high-scores-link");
+
+viewHighScoresLink.addEventListener("click", toggleHighScores);
+
+function toggleHighScores() {
+  const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+
+  // Check if there are high scores in local storage
+  if (highScores.length > 0) {
+    highscoresContainerEl.classList.toggle('hide');
+    questionContainerEl.classList.toggle('hide');
+  } else {
+    // Handle the case when there are no high scores
+    alert("No high scores are available.");
+  }
+}
+
+
 function clearScores() {
   localStorage.removeItem('highScores');
   highscoresListEl.innerHTML = '';
@@ -201,22 +224,16 @@ function restartQuiz() {
 function startTimer() {
   timerEl.textContent = "Time left: " + counter;
   myInterval = setInterval(function() { 
-    timerEl.textContent = "Time left: " + counter;
-    if (counter === 0 || allQuestionsAnswered) {
+    if (counter <= 0 || allQuestionsAnswered) {
       clearInterval(myInterval);
+      counter = 0; 
       endQuiz();
+    } else {
+      timerEl.textContent = "Time left: " + counter;
+      counter--;
     }
-    counter--;
   }, 1000);
 }
-
-//High-scores tab
-
-const highScoreLink = document.createElement('a');
-highScoreLink.textContent = 'View High Scores';
-highScoreLink.href = '#highscores-container';
-highScoreLink.classList.add('viewHSbtn');
-document.body.appendChild(highScoreLink);
 
 //Question Array
 
