@@ -12,6 +12,12 @@ body {
   background-repeat: no-repeat;
 }
 
+#header{
+  color: white;
+}
+
+
+
 /*Initial page styling*/
 .instructions {
   display: flex;
@@ -54,27 +60,36 @@ body {
   right: 30px;
   font-size: 25px; 
   font-weight: lighter;
+  color: #ffffff;
 }
 
 .hsTitle{
-  position: absolute;
-  top: 180px;
-  left: 40%;
-  transform: translateX(-50%);
+  display: flex;
+  position: relative;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
   font-size: 25px;
-  font-weight: lighter;
-  z-index: 9999;
+  font-weight:400;
+  top: 320px;
+  margin-top: 20px;
+  color: white;
 }
 
 .hsStats{
-  position: absolute;
-  top: 175px;
-  left: 900px;
-  transform: translateX(-50%);
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   font-size: 25px;
   font-weight: lighter;
-  z-index: 9999;
+  top: 300px;
+  list-style: none;
+  color: white;
 }
+
+
 
 .finalPrompts{
   position: relative;
@@ -97,6 +112,7 @@ h2{
 
 #question {
   font-size: 30px;
+  color: #ffffff;
 }
 
 body {
@@ -132,7 +148,7 @@ margin-top: 150px;
   font-size: 25px;
   font-weight: lighter;
   z-index: 999;
-  color: black;
+  color: rgb(255, 255, 255);
   text-decoration: none;
   cursor:pointer;
 }
@@ -181,10 +197,12 @@ margin-top: 150px;
   display: flex;
   position: relative;
   justify-content: center;
-  top: 95px;
-  left: 200px;
+  align-items: center;
+  flex-direction: column;
+  top: 62px;
+  margin-left: 400px;
   background-color: rgb(0, 132, 255);
-  width: 200px;
+  width: 100px;
   border-radius: 35px;
   font-size: 25px;
   border-width: 3px;
@@ -199,13 +217,16 @@ margin-top: 150px;
 
 /*-----Text box Initials-----*/
 .initials{
-  position: absolute;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
   border-radius: 10px;
   width: 300px;
   font-size: 30px;
   font-weight: lighter;
-  top: 150px;
-  left: 490px;
+  margin-left: 100px;
+  top: 100px;
 }
 
 /*--------Media queries--------*/
