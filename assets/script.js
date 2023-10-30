@@ -6,12 +6,15 @@ let clearBtn = document.getElementById("clear-btn");
 let restartBtn = document.getElementById("restart-btn");
 let questionEl = document.getElementById("question");
 let answerButtonsEl = document.getElementById("answer-buttons");
-let feedbackEl = document.getElementById("feedback"); 
-let timerEl = document.createElement("p"); 
-let headerEl = document.getElementById("header"); 
+let feedbackEl = document.getElementById("feedback");
+let timerEl = document.createElement("p");
+let headerEl = document.getElementById("header");
 let shuffledQuestions, currentQuestionIndex;
 let counter;
-let allQuestionsAnswered = false; 
+let allQuestionsAnswered = false;
+let highScores = [];
+
+
 
 startBtn.addEventListener("click", startQuiz);
 clearBtn.addEventListener("click", clearScores);
@@ -130,7 +133,6 @@ function endQuiz() {
 
 let initialsInput; 
 let submitBtn; 
-
 function saveHighScore() {
   if (!initialsInput && !submitBtn) {
     initialsInput = document.createElement('input');
@@ -150,15 +152,14 @@ function saveHighScore() {
 
       if (initials && score) {
         const highScore = { initials, score };
-        const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-        highScores.push(highScore);
+        highScores.push(highScore); // Push the high score to the array
         localStorage.setItem('highScores', JSON.stringify(highScores));
       }
 
       initialsInput.remove();
       submitBtn.remove();
-      initialsInput = null; 
-      submitBtn = null; 
+      initialsInput = null;
+      submitBtn = null;
 
       displayHighScores();
     });
@@ -167,8 +168,11 @@ function saveHighScore() {
 
 function displayHighScores() {
   highscoresListEl.innerHTML = '';
-  const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-  
+
+  // Retrieve high scores from local storage
+  highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+
+  // Sort and display high scores
   highScores
     .sort((a, b) => b.score - a.score)
     .forEach((highScore, index) => {
@@ -275,3 +279,4 @@ const questions = [
     ]
   },
 ]
+
